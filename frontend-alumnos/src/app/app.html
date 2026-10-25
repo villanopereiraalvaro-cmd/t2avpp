@@ -1,0 +1,54 @@
+
+<div class="contenedor">
+  <h1>Gestión de Alumnos</h1>
+  <p class="subtitulo">Sistema de administración académica</p>
+
+  <p class="mensaje" *ngIf="mensaje">{{ mensaje }}</p>
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <button class="actualizar" (click)="listarAlumnos()">
+    Actualizar lista
+  </button>
+
+  <div class="tabla-contenedor">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombres</th>
+          <th>Carrera</th>
+          <th>Ciclo</th>
+          <th>Promedio</th>
+          <th>Estado académico</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let alumno of alumnos">
+          <td>{{ alumno.id }}</td>
+          <td>{{ alumno.nombres }}</td>
+          <td>{{ alumno.carrera }}</td>
+          <td>{{ alumno.ciclo }}</td>
+          <td>{{ alumno.promedio }}</td>
+          <td>
+            <span
+              [class.regular]="alumno.estadoAcademico === 'REGULAR'"
+              [class.riesgo]="alumno.estadoAcademico === 'EN RIESGO'">
+              {{ alumno.estadoAcademico }}
+            </span>
+          </td>
+          <td>
+            <button class="eliminar" (click)="eliminarAlumno(alumno.id)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="alumnos.length === 0">
+          <td colspan="7">No hay alumnos registrados.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
